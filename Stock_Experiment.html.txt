@@ -1,0 +1,146 @@
+         <li>
+            <div class="dropdown my-3 text dark">
+              <button
+                class="
+                  btn btn-secondary
+                  text
+                  dark
+                  dropdown-toggle
+                  bg-opacity-100
+                "
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Discounted Cash Flow Model
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Understand Discounted Cash Flow</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Build Up Free Cash Flow Table</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Find Terminal Value</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Calculate Weghtend Average Cost Of Capital</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    >Find The Intrinsic Value Of The Company</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown my-3 text dark">
+              <button
+                class="
+                  btn btn-secondary
+                  text
+                  dark
+                  dropdown-toggle
+                  bg-opacity-100
+                "
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Markets
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Number Asc</a></li>
+                <li><a class="dropdown-item" href="#">Number Desc</a></li>
+                <li><a class="dropdown-item" href="#">Date Asec</a></li>
+                <li><a class="dropdown-item" href="#">Date dec</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown my-3 text dark">
+              <button
+                class="
+                  btn btn-secondary
+                  text
+                  dark
+                  dropdown-toggle
+                  bg-opacity-100
+                "
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Education
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Number Asc</a></li>
+                <li><a class="dropdown-item" href="#">Number Desc</a></li>
+                <li><a class="dropdown-item" href="#">Date Asec</a></li>
+                <li><a class="dropdown-item" href="#">Date dec</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown my-3 text dark">
+              <button
+                class="
+                  btn btn-secondary
+                  text
+                  dark
+                  dropdown-toggle
+                  bg-opacity-100
+                "
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                How to
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Number Asc</a></li>
+                <li><a class="dropdown-item" href="#">Number Desc</a></li>
+                <li><a class="dropdown-item" href="#">Date Asec</a></li>
+                <li><a class="dropdown-item" href="#">Date dec</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown my-3 text dark">
+              <button
+                class="
+                  btn btn-secondary
+                  text
+                  dark
+                  dropdown-toggle
+                  bg-opacity-100
+                "
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Developers
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Number Asc</a></li>
+                <li><a class="dropdown-item" href="#">Number Desc</a></li>
+                <li><a class="dropdown-item" href="#">Date Asec</a></li>
+                <li><a class="dropdown-item" href="#">Date dec</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>Sign up</li>
+          <li>Login</li>
