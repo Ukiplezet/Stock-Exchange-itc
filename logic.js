@@ -1,9 +1,13 @@
 const spinner = document.getElementById("stockSpinner");
 
 button.addEventListener(`click`, () => {
+  let userInput = document.getElementById("userInput").value;
+  let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
 
+  init(resultsOfCompany);
+  console.log(userInput);
   let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
-  const result = fetch(url)
+  let result = fetch(url)
     .then((response) => {
       spinner.classList.remove("d-none");
       return response.json();
@@ -37,3 +41,9 @@ button.addEventListener(`click`, () => {
     });
 });
 
+function init() {
+  const resultsOfCompany = document.getElementById("resultsOfCompany");
+  while (resultsOfCompany.firstElementChild) {
+    resultsOfCompany.removeChild(resultsOfCompany.firstElementChild);
+  }
+}
