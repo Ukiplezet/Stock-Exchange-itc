@@ -17,6 +17,26 @@ let closingPrice = [];
 
 grabCompanyProfile(symbol);
 
+async function grabStockHistory(symbol) {
+  const STOCK_HISTORY = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
+  try {
+    fetch(STOCK_HISTORY)
+      .then((response) => {
+        if (!response.ok) throw new TypeError("Personalized Error");
+        return response.json();
+      })
+      .then((graph) => {
+        for (let i in graph.historical) {
+          xlabels.push(graph.historical[i].date);
+          closingPrice.push(graph.historical[i].close);
+        }
+        getChart(graph);
+      });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function grabCompanyProfile(symbol) {
   const COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
   try {
@@ -36,48 +56,30 @@ async function grabCompanyProfile(symbol) {
     }, 1000);
   }
 }
+
 function append(data) {
   companyName.innerText = data.profile.companyName;
   companyIndustry.innerText = `(` + data.profile.industry + `)`;
   companyImage.src = data.profile.image;
   companyDescription.innerText = data.profile.description;
-  companyLink.innerText = data.profile.website;
-  companyLink.innerHTML = data.profile.companyName;
-  companyLink.href = companyLink.innerText;
+  companyLink.innerText = data.profile.companyName;
+  companyLink.href = data.profile.website;
   stockPrice.innerText = `Stock price: $` + data.profile.price;
   stockChanges.innerText = `` + `` + data.profile.changes;
   let percentChange = data.profile.changesPercentage;
+  goodOrBad(stockChanges);
   percentChange = Number(percentChange).toFixed(2);
   changePercent.innerText = `(` + percentChange + `%` + `)`;
-  goodOrBad(stockChanges);
 }
-function goodOrBad(stockChanges) {
-  if (stockChanges.innerText > 0) {
+
+function goodOrBad(percentChange) {
+  if (percentChange.innerText > 0) {
     stockChanges.classList.add("text-success", "fw-bold");
     changePercent.classList.add("text-success");
   }
   if (stockChanges.innerText < 0) {
     stockChanges.classList.add("text-danger", "fw-bold");
     changePercent.classList.add("text-danger");
-  }
-}
-async function grabStockHistory(symbol) {
-  const STOCK_HISTORY = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
-  try {
-    fetch(STOCK_HISTORY)
-      .then((response) => {
-        if (!response.ok) throw new TypeError("Personalized Error");
-        return response.json();
-      })
-      .then((graph) => {
-        for (let i in graph.historical) {
-          xlabels.push(graph.historical[i].date);
-          closingPrice.push(graph.historical[i].close);
-        }
-        getChart(graph);
-      });
-  } catch (e) {
-    console.log(e);
   }
 }
 

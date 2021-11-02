@@ -14,7 +14,8 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="wrapper mx-3 my-4">
+    <div class="wrapper mx-3 my-1 vh-100">
+      <div class="header d-flex flex-row justify-content-center display-5 mb-3 mt-0" id="header">Search NASDAQ Stocks</div>
       <div class="input-group mb-3">
         <input
           type="text"
@@ -27,16 +28,31 @@
         />
         <span class="btn" id="searchButton">Search</span>
       </div>
-      <div
-        id="stockSpinner"
-        class="spinner-border text-primary d-none"
-        role="status"
-      ></div>
-      <div class="">
-        <ul
-          class="pb-2 list-unstyled d-flex flex-column"
-          id="resultsOfCompany"
-        ></ul>
+
+      <div class="d-flex flex-row justify-content-center" id="companiesContent">
+        <div
+          id="stockSpinner"
+          class="
+            spinner-grow
+            text-primary
+            d-none
+            justify-content-center
+            mx-5
+            my-5
+            px-5
+            py-5
+          "
+          role="status"
+        ></div>
+        <div
+          class="listOfCompanies d-flex flex-row justify-content-center"
+          id="listOfCompanies"
+        >
+          <ul
+            class="pb-2 list-unstyled d-flex flex-column"
+            id="resultsOfCompany"
+          ></ul>
+        </div>
       </div>
     </div>
     <script
@@ -46,6 +62,5 @@
     ></script>
     <script src="./constants.js"></script>
     <script src="./logic.js"></script>
-    <!-- <script src="./company.js"></script> -->
   </body>
 </html>
