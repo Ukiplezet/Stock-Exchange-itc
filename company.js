@@ -61,6 +61,7 @@ function append(data) {
   companyName.innerText = data.profile.companyName;
   companyIndustry.innerText = `(` + data.profile.industry + `)`;
   companyImage.src = data.profile.image;
+  companyImage.style = "height:130px; width:150px;";
   companyDescription.innerText = data.profile.description;
   companyLink.innerText = data.profile.companyName;
   companyLink.href = data.profile.website;

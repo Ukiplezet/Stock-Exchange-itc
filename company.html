@@ -14,7 +14,7 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body class="bg-light">
-    <div class="wrapper h-auto d-flex flex-col mt-1 pb-1 mb-0 px-3 mx-3">
+    <div class="wrapper h-100 d-flex flex-col mt-1 pb-1 mb-0 px-3 mx-3 border border-0">
       <div class="d-flex justify-content-center">
         <div
           id="stockSpinner"
@@ -42,11 +42,11 @@
             id="companyImage"
           />
           <span
-            class="companyName text-primary display-4 mx-4 mt-5"
+            class="companyName text-primary display-4 mx-5 py-2 mt-4"
             id="companyName"
           ></span
           ><span
-            class="companyIndustry text-primary h4 mt-4 pt-5"
+            class="companyIndustry text-primary h4 mt-3 pt-5"
             id="companyIndustry"
           ></span>
         </div>
@@ -57,7 +57,7 @@
             d-flex
             row-md-12 row-sm-3 row-lg-12
             flex-row
-            justify-content-around
+            justify-content-around border border-1
           "
           id="companyData"
         >
@@ -81,6 +81,7 @@
                 px-1
                 mt-1
                 justify-content-around
+                border-bottom border-1
               "
             >
               <div class="companyLinkBox d-flex">
@@ -102,12 +103,12 @@
               ><span class="changePercent mt-1 pt-1" id="changePercent"></span>
             </div>
             <div class="stockChart mt-3">
-              <canvas id="chart" width="500" height="300" class=""></canvas>
+              <canvas id="chart" width="500" height="400" class="border border-2"></canvas>
             </div>
           </div>
 
           <div
-            class="companyDescrpition d-flex col-md-5 col-sm-3 col-lg-5 mt-3"
+            class="companyDescrpition d-flex col-md-5 col-sm-3 col-lg-5 mt-3 border-start border-1 ps-4 mb-3"
             id="companyDescription"
           ></div>
         </div>

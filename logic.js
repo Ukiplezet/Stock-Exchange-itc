@@ -1,18 +1,10 @@
 const spinner = document.getElementById("stockSpinner");
 const button = document.getElementById(`searchButton`);
 const header = document.getElementById(`header`);
-// const listOfCompanies = document.getElementById("listOfCompanies");
 
 button.addEventListener(`click`, async () => {
   let userInput = document.getElementById("userInput").value;
   let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
-
-  header.classList.add(
-
-  )
-
-
-
   init(resultsOfCompany);
   let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
   let result = fetch(url)
@@ -23,6 +15,7 @@ button.addEventListener(`click`, async () => {
     })
     .then((data) => {
       JSON.stringify(data);
+      console.log(data);
       async function getThis(data) {
         for (let i = 0; i < 10; i++) {
           let symbol = data[i].symbol;
@@ -54,7 +47,7 @@ button.addEventListener(`click`, async () => {
             "border-0",
             "d-inline-block",
             "px-2",
-            "fs-5",
+            "fs-5"
           );
           let COMPANY_URL = "/company.html?symbol=" + data[i].symbol;
           tagLink.href = COMPANY_URL;
@@ -80,7 +73,6 @@ button.addEventListener(`click`, async () => {
     });
 });
 
-function goodOrBad2(dailyChange) {}
 function init() {
   const resultsOfCompany = document.getElementById("resultsOfCompany");
   while (resultsOfCompany.firstElementChild) {
