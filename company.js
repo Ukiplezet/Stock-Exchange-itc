@@ -7,7 +7,7 @@ const stockPrice = document.getElementById(`stockPrice`);
 const stockChanges = document.getElementById(`stockChanges`);
 const companyIndustry = document.getElementById(`companyIndustry`);
 const changePercent = document.getElementById(`changePercent`);
-
+const companyData = document.getElementById(`companyData`);
 const spinner = document.getElementById("stockSpinner");
 let urlParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlParams.entries());
@@ -16,15 +16,27 @@ let xlabels = [];
 let closingPrice = [];
 
 grabCompanyProfile(symbol);
-grabStockHistory(symbol);
 
 async function grabCompanyProfile(symbol) {
   const COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-  const response = await fetch(COMPANY_PROFILE);
-  const data = await response.json();
-  append(data);
+  try {
+    const response = await fetch(COMPANY_PROFILE);
+    const data = await response.json();
+    spinner.classList.remove(`d-none`);
+    companyData.classList.add(`d-none`);
+    await grabStockHistory(symbol);
+    append(data);
+    if (!response.ok) throw new TypeError("Personalized Error");
+  } catch (e) {
+    console.log(e);
+  } finally {
+    setTimeout(() => {
+      spinner.classList.add(`d-none`);
+      companyData.classList.remove(`d-none`);
+    }, 1000);
+  }
 }
-async function append(data) {
+function append(data) {
   companyName.innerText = data.profile.companyName;
   companyIndustry.innerText = `(` + data.profile.industry + `)`;
   companyImage.src = data.profile.image;
@@ -34,7 +46,9 @@ async function append(data) {
   companyLink.href = companyLink.innerText;
   stockPrice.innerText = `Stock price: $` + data.profile.price;
   stockChanges.innerText = `` + `` + data.profile.changes;
-  changePercent.innerText = `(` + data.profile.changesPercentage + `)`;
+  let percentChange = data.profile.changesPercentage;
+  percentChange = Number(percentChange).toFixed(2);
+  changePercent.innerText = `(` + percentChange + `%` + `)`;
   goodOrBad(stockChanges);
 }
 function goodOrBad(stockChanges) {
@@ -67,11 +81,11 @@ async function grabStockHistory(symbol) {
   }
 }
 
-async function getChart(graph) {
+function getChart(graph) {
   Chart.defaults.elements.line.borderWidth = 1;
   Chart.defaults.elements.point.radius = 2;
   Chart.defaults.elements.pointStyle = `line`;
-  Chart.defaults.elements.line.tension = 1;
+  Chart.defaults.elements.line.stepped = true;
   const ctx = document.getElementById(`chart`).getContext("2d");
   const myChart = new Chart(ctx, {
     type: "line",
