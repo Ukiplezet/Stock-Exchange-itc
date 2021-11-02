@@ -12,26 +12,30 @@ const spinner = document.getElementById("stockSpinner");
 let urlParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlParams.entries());
 let symbol = params.symbol;
+let xlabels = [];
+let closingPrice = [];
 
-function grabCompanyProfile(symbol) {
+grabCompanyProfile(symbol);
+grabStockHistory(symbol);
+
+async function grabCompanyProfile(symbol) {
   const COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-  fetch(COMPANY_PROFILE)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      companyName.innerText = data.profile.companyName;
-      companyIndustry.innerText = `(` + data.profile.industry + `)`;
-      companyImage.src = data.profile.image;
-      companyDescription.innerText = data.profile.description;
-      companyLink.innerText = data.profile.website;
-      companyLink.innerHTML = data.profile.companyName;
-      companyLink.href = companyLink.innerText;
-      stockPrice.innerText = `Stock price: $` + data.profile.price;
-      stockChanges.innerText = `` + `` + data.profile.changes;
-      changePercent.innerText = `(` + data.profile.changesPercentage + `)`;
-      goodOrBad(stockChanges);
-    });
+  const response = await fetch(COMPANY_PROFILE);
+  const data = await response.json();
+  append(data);
+}
+async function append(data) {
+  companyName.innerText = data.profile.companyName;
+  companyIndustry.innerText = `(` + data.profile.industry + `)`;
+  companyImage.src = data.profile.image;
+  companyDescription.innerText = data.profile.description;
+  companyLink.innerText = data.profile.website;
+  companyLink.innerHTML = data.profile.companyName;
+  companyLink.href = companyLink.innerText;
+  stockPrice.innerText = `Stock price: $` + data.profile.price;
+  stockChanges.innerText = `` + `` + data.profile.changes;
+  changePercent.innerText = `(` + data.profile.changesPercentage + `)`;
+  goodOrBad(stockChanges);
 }
 function goodOrBad(stockChanges) {
   if (stockChanges.innerText > 0) {
@@ -43,7 +47,7 @@ function goodOrBad(stockChanges) {
     changePercent.classList.add("text-danger");
   }
 }
-function grabStockHistory(symbol) {
+async function grabStockHistory(symbol) {
   const STOCK_HISTORY = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
   try {
     fetch(STOCK_HISTORY)
@@ -52,36 +56,37 @@ function grabStockHistory(symbol) {
         return response.json();
       })
       .then((graph) => {
-        console.log(graph);
-        for (let i = 0; i < graph.historical.length; i++) {
-          const labels = graph.historical[i].date;
-          const data = {
-            labels: graph.historical[i].date,
-            datasets: [
-              {
-                label: graph.symbol,
-                backgroundColor: "rgb(255, 99, 132)",
-                borderColor: "rgb(255, 99, 132)",
-                data: [
-                  0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600,
-                  650, 700, 750, 800, 850, 900, 950, 1000,
-                ],
-              },
-            ],
-          };
+        for (let i in graph.historical) {
+          xlabels.push(graph.historical[i].date);
+          closingPrice.push(graph.historical[i].close);
         }
-        const config = {
-          type: "line",
-          data: graph,
-          options: {},
-        };
-
-        const myChart = new Chart(document.getElementById("myChart"), config);
+        getChart(graph);
       });
   } catch (e) {
     console.log(e);
   }
 }
 
-grabCompanyProfile(symbol);
-grabStockHistory(symbol);
+async function getChart(graph) {
+  Chart.defaults.elements.line.borderWidth = 1;
+  Chart.defaults.elements.point.radius = 2;
+  Chart.defaults.elements.pointStyle = `line`;
+  Chart.defaults.elements.line.tension = 1;
+  const ctx = document.getElementById(`chart`).getContext("2d");
+  const myChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: xlabels.reverse(),
+      datasets: [
+        {
+          label: graph.symbol,
+          data: closingPrice.reverse(),
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 0,
+          borderRadius: 0,
+        },
+      ],
+    },
+  });
+}

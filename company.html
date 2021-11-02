@@ -41,16 +41,25 @@
             id="companyIndustry"
           ></span>
         </div>
-        <div class="companyData d-flex flex-row justify-content-around">
+        <div
+          class="
+            companyData
+            d-flex
+            row-md-12 row-sm-3 row-lg-12
+            flex-row
+            justify-content-around
+          "
+        >
           <div
             class="
               priceAndChangeAndLink
               d--flex
-              mt-3
-              my-1
-              px-5
+              my-3
+              px-3
               flex-col
+              row-md-12 row-sm-3 row-lg-12
               justify-content-start
+              border border-1
             "
           >
             <div
@@ -58,9 +67,11 @@
                 contentTop
                 d-flex
                 flex-row
-                col-md-12 col-sm-3 col-lg-12
-                row-xs-3
+                row-md-6 row-sm-3 row-lg-6 row-xs-3
+                px-1
+                mt-1
                 justify-content-around
+                
               "
             >
               <div class="companyLinkBox d-flex">
@@ -82,10 +93,9 @@
               ><span class="changePercent mt-1 pt-1" id="changePercent"></span>
             </div>
             <div class="stockChart mt-3">
-              <canvas id="myChart" class=""></canvas>
+              <canvas id="chart" width="500" height="300" class=""></canvas>
             </div>
           </div>
-
           <div
             class="companyDescrpition d-flex col-md-5 col-sm-3 col-lg-5 mt-3"
             id="companyDescription"
@@ -99,8 +109,8 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./node_modules/chart.js/dist/chart.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
     <script src="./constants.js"></script>
     <script src="./company.js"></script>
   </body>
