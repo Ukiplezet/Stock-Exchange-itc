@@ -44,6 +44,7 @@ async function grabCompanyProfile(symbol) {
     const data = await response.json();
     spinner.classList.remove(`d-none`);
     companyData.classList.add(`d-none`);
+    companyData.classList.add(`d-none`);
     await grabStockHistory(symbol);
     append(data);
     if (!response.ok) throw new TypeError("Personalized Error");
@@ -61,6 +62,10 @@ function append(data) {
   companyName.innerText = data.profile.companyName;
   companyIndustry.innerText = `(` + data.profile.industry + `)`;
   companyImage.src = data.profile.image;
+  companyImage.onerror = function placeCage() {
+    companyImage.src = "https://www.placecage.com/c/205/210";
+  };
+  companyImage.classList.add("rounded");
   companyImage.style = "height:130px; width:150px;";
   companyDescription.innerText = data.profile.description;
   companyLink.innerText = data.profile.companyName;

@@ -19,24 +19,16 @@
         wrapper
         h-100
         d-flex
-        flex-col
+        flex-row
         mt-1
         pb-1
         mb-0
         px-3
         mx-3
+        justify-content-center
         border border-0
       "
     >
-      <div class="d-flex justify-content-center">
-        <div
-          id="stockSpinner"
-          class="spinner-border my-5 py-5 px-5 mx-5 text-primary"
-          role="status"
-        >
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
       <div class="companyProfile row-sm-12" id="companyProfile">
         <div
           class="
@@ -63,7 +55,13 @@
             id="companyIndustry"
           ></span>
         </div>
-
+        <div class="d-flex flex-row justify-content-center">
+          <div
+            id="stockSpinner"
+            class="spinner-border my-5 py-5 px-5 mx-5 text-primary"
+            role="status"
+          ></div>
+        </div>
         <div
           class="
             companyData
@@ -103,14 +101,14 @@
                     d-flex
                     flex-row
                     px-2
-                    mx-4
+                    mx-3
                     text-decoration-none
                     fs-4
                   "
                   id="companyLink"
                 ></a>
               </div>
-              <span class="stockPrice fs-4 mx-1" id="stockPrice"></span>
+              <span class="stockPrice fs-4 mx-2" id="stockPrice"></span>
               <span class="stockChanges fs-4 mx-1" id="stockChanges"></span
               ><span class="changePercent mt-1 pt-1" id="changePercent"></span>
             </div>
