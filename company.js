@@ -85,10 +85,11 @@ function goodOrBad(percentChange) {
 }
 
 function getChart(graph) {
-  Chart.defaults.elements.line.borderWidth = 1;
+  Chart.defaults.elements.line.borderWidth = 0;
   Chart.defaults.elements.point.radius = 2;
   Chart.defaults.elements.pointStyle = `line`;
   Chart.defaults.elements.line.stepped = true;
+  Chart.defaults.elements.line.tension = 0;
   const ctx = document.getElementById(`chart`).getContext("2d");
   const myChart = new Chart(ctx, {
     type: "line",
@@ -98,7 +99,7 @@ function getChart(graph) {
         {
           label: graph.symbol,
           data: closingPrice.reverse(),
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          backgroundColor: "rgba(169, 69, 69)",
           borderColor: "rgba(255, 99, 132, 1)",
           borderWidth: 0,
           borderRadius: 0,
