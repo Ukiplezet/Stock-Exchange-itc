@@ -1,10 +1,7 @@
 const spinner = document.getElementById("stockSpinner");
 const button = document.getElementById(`searchButton`);
 const header = document.getElementById(`header`);
-const marqueeWrap = document.getElementById(`marqueeWrap`);
 const companiesContent = document.getElementById(`companiesContent`);
-
-CurrentStockMarquee();
 
 button.addEventListener(`click`, async () => {
   let userInput = document.getElementById("userInput").value;
@@ -89,29 +86,3 @@ async function getTheProfile(data) {
   }
 }
 
-async function CurrentStockMarquee() {
-  let marquee_url = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
-  const response = await fetch(marquee_url);
-  let banner = await response.json();
-  console.log(marquee_url);
-  for (i = 0; i < banner.length; i++) {
-    let companyTicker = document.createElement("p");
-    companyTicker.innerHTML = banner[i].ticker;
-    let currentChange = document.createElement("p");
-    currentChange.innerHTML = banner[i].changesPercentage;
-    let currentPrice = document.createElement("p");
-    currentPrice.innerHTML = banner[i].price + `$`;
-    if (currentChange.innerText > 0)
-      currentChange.classList.add("text-success");
-    if (currentChange.innerText < 0) currentChange.classList.add("text-danger");
-    let marqueeBanner = document.createElement("span");
-    companyTicker.classList.add("ms-3", "flex-row-nowrap");
-    currentChange.classList.add("mx-1", "flex-row-nowrap");
-    currentPrice.classList.add("ms-1", "me-1", "flex-row-nowrap");
-    marqueeBanner.classList.add("d-flex", "flex-row-nowrap");
-    marqueeBanner.append(companyTicker);
-    marqueeBanner.append(currentChange);
-    marqueeBanner.append(currentPrice);
-    marqueeWrap.appendChild(marqueeBanner);
-  }
-}
