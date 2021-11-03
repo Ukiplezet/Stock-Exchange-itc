@@ -3,6 +3,8 @@ const button = document.getElementById(`searchButton`);
 const header = document.getElementById(`header`);
 const marqueeWrap = document.getElementById(`marqueeWrap`);
 
+CurrentStockMarquee();
+
 button.addEventListener(`click`, async () => {
   let userInput = document.getElementById("userInput").value;
   let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
@@ -31,7 +33,6 @@ function init() {
   while (resultsOfCompany.firstElementChild) {
     resultsOfCompany.removeChild(resultsOfCompany.firstElementChild);
   }
-  CurrentStockMarquee();
 }
 
 async function getTheProfile(data) {
@@ -83,20 +84,28 @@ async function getTheProfile(data) {
 }
 
 async function CurrentStockMarquee() {
-  let marquee = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
-  console.log(marquee);
-  const response = await fetch(marquee);
+  let marquee_url = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
+  const response = await fetch(marquee_url);
   let banner = await response.json();
-  console.log(banner);
-  for (i = 0; i > banner.length; i++) {
-    let symbol = banner[i].ticker;
-    let change = banner[i].change;
-    let price = banner[i].price;
-    console.log(banner[0].price);
+  console.log(marquee_url);
+  for (i = 0; i < banner.length; i++) {
+    let companyTicker = document.createElement("p");
+    companyTicker.innerHTML = banner[i].ticker;
+    let currentChange = document.createElement("p");
+    currentChange.innerHTML = banner[i].changesPercentage;
+    let currentPrice = document.createElement("p");
+    currentPrice.innerHTML = banner[i].price + `$`;
+    if (currentChange.innerText > 0)
+      currentChange.classList.add("text-success");
+    if (currentChange.innerText < 0) currentChange.classList.add("text-danger");
     let marqueeBanner = document.createElement("span");
-    marqueeBanner.append(symbol);
-    marqueeBanner.append(change);
-    marqueeBanner.append(price);
-    marqueeWrap.appendChile(marqueeBanner);
+    companyTicker.classList.add("fs-6", "ms-3", "flex-row-nowrap");
+    currentChange.classList.add("fs-6", "mx-1", "flex-row-nowrap");
+    currentPrice.classList.add("fs-6", "ms-1", "me-1", "flex-row-nowrap");
+    marqueeBanner.classList.add("fs-6", "d-flex", "flex-row-nowrap");
+    marqueeBanner.append(companyTicker);
+    marqueeBanner.append(currentChange);
+    marqueeBanner.append(currentPrice);
+    marqueeWrap.appendChild(marqueeBanner);
   }
 }

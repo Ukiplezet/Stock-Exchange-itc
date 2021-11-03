@@ -1,0 +1,27 @@
+.marquee {
+  height: 30px;
+  background: #fefefe;
+  color: #333;
+  border: 1px solid #4a4a4a;
+  overflow: hidden;
+  position: relative;
+}
+.marqueeWrap {
+  display: block;
+  width: 200%;
+  position: absolute;
+  animation: marquee 20s linear infinite;
+}
+.marqueeBanner {
+  display: inline-block;
+  float: left;
+  transition: all 0.2s ease-out;
+}
+@keyframes marquee {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
