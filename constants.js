@@ -3,3 +3,4 @@ const SERVER_API = `/api/v3/`;
 const FINANCE_LIST = `financial-statement-symbol-lists`;
 const LIST_LIMIT = `limit=10`;
 const EXCHANGE = `exchange=NASDAQ`;
+const DATA_REAL_TIME = `actives`;

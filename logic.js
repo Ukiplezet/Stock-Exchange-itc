@@ -1,6 +1,7 @@
 const spinner = document.getElementById("stockSpinner");
 const button = document.getElementById(`searchButton`);
 const header = document.getElementById(`header`);
+const marqueeWrap = document.getElementById(`marqueeWrap`);
 
 button.addEventListener(`click`, async () => {
   let userInput = document.getElementById("userInput").value;
@@ -30,6 +31,7 @@ function init() {
   while (resultsOfCompany.firstElementChild) {
     resultsOfCompany.removeChild(resultsOfCompany.firstElementChild);
   }
+  CurrentStockMarquee();
 }
 
 async function getTheProfile(data) {
@@ -77,5 +79,24 @@ async function getTheProfile(data) {
     companyList.append(companyData);
     let urlParams = new URLSearchParams(COMPANY_URL);
     urlParams.get(symbol);
+  }
+}
+
+async function CurrentStockMarquee() {
+  let marquee = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
+  console.log(marquee);
+  const response = await fetch(marquee);
+  let banner = await response.json();
+  console.log(banner);
+  for (i = 0; i > banner.length; i++) {
+    let symbol = banner[i].ticker;
+    let change = banner[i].change;
+    let price = banner[i].price;
+    console.log(banner[0].price);
+    let marqueeBanner = document.createElement("span");
+    marqueeBanner.append(symbol);
+    marqueeBanner.append(change);
+    marqueeBanner.append(price);
+    marqueeWrap.appendChile(marqueeBanner);
   }
 }
