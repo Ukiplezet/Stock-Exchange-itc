@@ -14,8 +14,8 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="wrapper mx-3 my-1">
-      <div class="marquee">
+    <div class="wrapper vh-100 w-100">
+      <div class="marquee bg-light">
         <div class="marqueeWrap d-flex flex-row-nowrap" id="marqueeWrap"></div>
       </div>
       <div
@@ -32,41 +32,45 @@
       >
         Search NASDAQ Stocks
       </div>
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search Stock..."
-          aria-label="Search Stock..."
-          aria-describedby="basic-addon2"
-          id="userInput"
-          autocomplete="on"
-        />
-        <span class="btn" id="searchButton">Search</span>
+      <div class="inputContainer d-flex justify-content-center">
+        <div class="input-group w-25 d-flex mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search Stock..."
+            aria-label="Search Stock..."
+            aria-describedby="basic-addon2"
+            id="userInput"
+            autocomplete="on"
+          />
+          <span class="btn" id="searchButton">Search</span>
+        </div>
       </div>
-      <div class="d-flex flex-row justify-content-center" id="companiesContent">
-        <div
-          id="stockSpinner"
-          class="
-            spinner-grow
-            text-primary
-            d-none
-            justify-content-center
-            mx-5
-            my-5
-            px-5
-            py-5
-          "
-          role="status"
-        ></div>
-        <div
-          class="listOfCompanies d-flex flex-row justify-content-center"
-          id="listOfCompanies"
-        >
-          <ul
-            class="pb-2 list-unstyled d-flex flex-column"
-            id="resultsOfCompany"
-          ></ul>
+      <div class="contentContainer d-flex justify-content-center flex-row">
+        <div class="d-flex justify-content-center" id="companiesContent">
+          <div
+            id="stockSpinner"
+            class="
+              spinner-grow
+              text-primary
+              d-none
+              justify-content-center
+              mx-5
+              my-5
+              px-5
+              py-5
+            "
+            role="status"
+          ></div>
+          <div
+            class="listOfCompanies d-flex flex-row justify-content-center"
+            id="listOfCompanies"
+          >
+            <ul
+              class="list-unstyled d-flex flex-column"
+              id="resultsOfCompany"
+            ></ul>
+          </div>
         </div>
       </div>
     </div>

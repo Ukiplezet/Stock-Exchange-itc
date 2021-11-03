@@ -1,3 +1,8 @@
+body {
+  background-image: url(./anastasia-taioglou-CTivHyiTbFw-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .marquee {
   height: 30px;
   background: #fefefe;
