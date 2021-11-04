@@ -20,14 +20,15 @@ button.addEventListener(`click`, async () => {
     })
     .finally(() => {
       setTimeout(() => {
-        spinner.classList.add("d-none");
-        listOfCompanies.classList.remove("d-none");
-        companiesContent.classList.add(
+        listOfCompanies.classList.add(
           "bg-light",
           "border",
           "border-1",
-          "border-grey"
+          "border-grey",
+          "shadow-lg"
         );
+        spinner.classList.add("d-none");
+        listOfCompanies.classList.remove("d-none");
       }, 5000);
     });
 });
@@ -37,6 +38,8 @@ function init() {
   while (resultsOfCompany.firstElementChild) {
     resultsOfCompany.removeChild(resultsOfCompany.firstElementChild);
   }
+  listOfCompanies.classList.add("d-none");
+  spinner.classList.remove("border");
 }
 
 async function getTheProfile(data) {
@@ -51,9 +54,9 @@ async function getTheProfile(data) {
     let tagImg = document.createElement("img");
     tagImg.src = profileData.profile.image;
     tagImg.onerror = function placeCage() {
-      tagImg.src = "https://www.placecage.com/c/205/210";
+      tagImg.src = "https://www.placecage.com/c/200/200";
     };
-    tagImg.classList.add("rounded", "mt-2", "me-2");
+    tagImg.classList.add("rounded", "mt-2", "mx-2", "pt-1");
     tagImg.style = "max-height:25px; max-width:25px;";
     let dailyChange = document.createElement("p");
     let percentChange = profileData.profile.changesPercentage;
@@ -68,8 +71,8 @@ async function getTheProfile(data) {
       "border-bottom",
       "border-grey",
       "border-0",
-      "d-inline-block",
-      "px-2"
+      "px-2",
+      "py-0"
     );
     let COMPANY_URL = "/company.html?symbol=" + data[i].symbol;
     tagLink.href = COMPANY_URL;
@@ -85,4 +88,3 @@ async function getTheProfile(data) {
     urlParams.get(symbol);
   }
 }
-

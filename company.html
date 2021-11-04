@@ -36,6 +36,7 @@
             row-xs-12
             mt-1
             d-flex
+            mb-2
             flex-row
             justify-content-center
           "
@@ -43,15 +44,15 @@
           <img
             src=""
             alt=""
-            class="companyImage img-thumbnail"
+            class="companyImage mt-3 img-thumbnail"
             id="companyImage"
           />
           <span
-            class="companyName text-primary display-4 mx-5 py-2 mt-4"
+            class="companyName text-primary display-4 mx-3 mt-3"
             id="companyName"
           ></span
           ><span
-            class="companyIndustry text-primary h4 mt-3 pt-5"
+            class="companyIndustry text-primary h4 mt-4 pt-3"
             id="companyIndustry"
           ></span>
         </div>
@@ -63,14 +64,7 @@
           ></div>
         </div>
         <div
-          class="
-            companyData
-            d-flex
-            row-md-12 row-sm-3 row-lg-12
-            flex-row
-            justify-content-around
-            border border-1
-          "
+          class="companyData d-flex flex-row justify-content-evenly"
           id="companyData"
         >
           <div
@@ -78,61 +72,59 @@
               priceAndChangeAndLink
               d--flex
               my-2
-              px-3
               flex-col
-              justify-content-start
+              align-content-center
+              col-md-6 col-sm-3 col-lg-6
             "
+            id="priceAndChangeAndLink"
           >
             <div
               class="
                 contentTop
                 d-flex
                 flex-row
-                px-1
-                mt-1
-                justify-content-around
+                bd-highlight
+                justify-content-between
                 border-bottom border-1
               "
             >
-              <div class="companyLinkBox d-flex">
+              <div class="companyLinkBox d-flex fs-5" id="companyLinkBox">
                 <a
                   class="
                     companyLink
                     d-flex
-                    flex-row
+                    flex-row-nowrap
                     px-2
-                    mx-3
                     text-decoration-none
-                    fs-4
                   "
                   id="companyLink"
                 ></a>
               </div>
-              <span class="stockPrice fs-4 mx-2" id="stockPrice"></span>
-              <span class="stockChanges fs-4 mx-1" id="stockChanges"></span
-              ><span class="changePercent mt-1 pt-1" id="changePercent"></span>
+              <div class="stockPriceAndChange">
+                <span class="stockPrice mx-2 fs-5" id="stockPrice"></span>
+                <span class="stockChanges mx-1 fs-5" id="stockChanges"></span
+                ><span class="changePercent fs-5" id="changePercent"></span>
+              </div>
             </div>
-            <div class="stockChart mt-3">
-              <canvas
-                id="chart"
-                width="700"
-                height="400"
-                class="border border-2"
-              ></canvas>
+            <div class="stockChart mt-4 position-relative">
+              <canvas id="chart" width="auto" height="auto"></canvas>
             </div>
           </div>
           <div
             class="
-              companyDescrpition
+              companyDescrpitionWrapper
               d-flex
-              col-md-5 col-sm-3 col-lg-5
-              mt-3
-              border-start border-1
-              ps-4
-              mb-3
+              col-md-2 col-sm-3 col-lg-5
+              row-lg-5 row-md-5
+              align-self-center
             "
-            id="companyDescription"
-          ></div>
+            id="companyDescrpitionWrapper"
+          >
+            <p
+              id="companyDescription"
+              class="d-flex flex-col align-self-center mt-3 ps-1 me-2 mb-3"
+            ></p>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,13 @@ const stockChanges = document.getElementById(`stockChanges`);
 const companyIndustry = document.getElementById(`companyIndustry`);
 const changePercent = document.getElementById(`changePercent`);
 const companyData = document.getElementById(`companyData`);
-const spinner = document.getElementById("stockSpinner");
+const spinner = document.getElementById(`stockSpinner`);
+const chart = document.getElementById(`chart`);
+const companyDescrpitionWrapper = document.getElementById(
+  `companyDescrpitionWrapper`
+);
+const priceAndChangeAndLink = document.getElementById(`priceAndChangeAndLink`);
+
 let urlParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlParams.entries());
 let symbol = params.symbol;
@@ -62,30 +68,35 @@ function append(data) {
   companyName.innerText = data.profile.companyName;
   companyIndustry.innerText = `(` + data.profile.industry + `)`;
   companyImage.src = data.profile.image;
+  companyImage.style = "max-height:70px; max-width:70px;";
   companyImage.onerror = function placeCage() {
     companyImage.src = "https://www.placecage.com/c/205/210";
   };
   companyImage.classList.add("rounded");
-  companyImage.style = "height:130px; width:150px;";
   companyDescription.innerText = data.profile.description;
-  companyLink.innerText = data.profile.companyName;
+  companyDescription.classList.add("bg-light", "rounded", "shadow-lg", "px-1");
+  priceAndChangeAndLink.classList.add("me-4");
+  companyDescrpitionWrapper.classList.add("border-start", "border-1", "ps-4");
+  companyLink.innerText = `Website:  ` + data.profile.companyName;
   companyLink.href = data.profile.website;
   stockPrice.innerText = `Stock price: $` + data.profile.price;
   stockChanges.innerText = `` + `` + data.profile.changes;
-  let percentChange = data.profile.changesPercentage;
-  goodOrBad(stockChanges);
-  percentChange = Number(percentChange).toFixed(2);
-  changePercent.innerText = `(` + percentChange + `%` + `)`;
+  let percentOfChange = data.profile.changesPercentage;
+  percentOfChange = Number(percentOfChange).toFixed(2);
+  goodOrBad(percentOfChange);
+  companyData.classList.add("border", "border-1", "shadow", "pb-2");
 }
 
-function goodOrBad(percentChange) {
-  if (percentChange.innerText > 0) {
+function goodOrBad(percentOfChange) {
+  if (percentOfChange > 0) {
     stockChanges.classList.add("text-success", "fw-bold");
     changePercent.classList.add("text-success");
+    changePercent.innerText = `(` + `+` + percentOfChange + `%` + `)`;
   }
-  if (stockChanges.innerText < 0) {
+  if (percentOfChange < 0) {
     stockChanges.classList.add("text-danger", "fw-bold");
     changePercent.classList.add("text-danger");
+    changePercent.innerText = `(` + `-` + percentOfChange + `%` + `)`;
   }
 }
 
@@ -111,5 +122,8 @@ function getChart(graph) {
         },
       ],
     },
+    options: { responsive: true },
   });
+  chart.classList.add("border", "border-2", "bg-light", "rounded", "shadow");
+  chart.style = "max-height=800px; max-width=600px;";
 }

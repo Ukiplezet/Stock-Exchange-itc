@@ -3,15 +3,12 @@ class Marquee {
   marqueeWrap;
   marquee_url;
 
-  // Unique properties through the constructor
   constructor(marquee) {
     this.marquee = marquee;
     this.getAllConsts();
     this.CurrentStockMarquee();
-    // this.appendMarquee();
   }
 
-  // Shared methods, THE PROTOTYPE!!!
   getAllConsts() {
     this.marquee = document.getElementById(`marquee`);
     this.marquee_url = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
