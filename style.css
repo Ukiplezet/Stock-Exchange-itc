@@ -4,7 +4,7 @@ body {
   background-repeat: no-repeat;
 }
 .marqueeWrap {
-  display: block;
+  display: flex;
   position: absolute;
   width: 200%;
   animation: marqueerunner 40s linear infinite;
@@ -20,9 +20,9 @@ body {
   position: relative;
 }
 .marqueeBanner {
-  /* display: inline-block; */
+  display: inline-block;
   float: left;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 @keyframes marqueerunner {
   0% {

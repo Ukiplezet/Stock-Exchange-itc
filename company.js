@@ -80,7 +80,7 @@ function append(data) {
   companyLink.innerText = `Website:  ` + data.profile.companyName;
   companyLink.href = data.profile.website;
   stockPrice.innerText = `Stock price: $` + data.profile.price;
-  stockChanges.innerText = `` + `` + data.profile.changes;
+  stockChanges.innerText = `` + `` + Number(data.profile.changes).toFixed(2);
   let percentOfChange = data.profile.changesPercentage;
   percentOfChange = Number(percentOfChange).toFixed(2);
   goodOrBad(percentOfChange);
@@ -91,12 +91,12 @@ function goodOrBad(percentOfChange) {
   if (percentOfChange > 0) {
     stockChanges.classList.add("text-success", "fw-bold");
     changePercent.classList.add("text-success");
-    changePercent.innerText = `(` + `+` + percentOfChange + `%` + `)`;
+    changePercent.innerText = `(` + percentOfChange + `%` + `)`;
   }
   if (percentOfChange < 0) {
     stockChanges.classList.add("text-danger", "fw-bold");
     changePercent.classList.add("text-danger");
-    changePercent.innerText = `(` + `-` + percentOfChange + `%` + `)`;
+    changePercent.innerText = `(` + percentOfChange + `%` + `)`;
   }
 }
 
