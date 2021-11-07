@@ -1,14 +1,16 @@
 class SearchResults {
   results;
-  static appendedResultCount = 0;
-  // compnies;
   constructor(results) {
     this.results = results;
     this.init();
-    SearchResults.appendedResultCount += 1;
+  }
+
+  init() {
+    this.results.innerHTML = "";
   }
 
   createSearchResults(companies) {
+    this.init();
     const spinner = document.createElement("stockSpinner");
     spinner.id = `stockSpinner`;
     spinner.classList.add(
@@ -49,87 +51,72 @@ class SearchResults {
     searchResult.append(companiesContent);
     companiesContent.append(listOfCompanies);
     listOfCompanies.append(resultsOfCompany);
-    fetchCompanies(companies);
+    this.fetchCompanies(companies);
   }
-  init() {
-    if (this.appendedResultCount < 1) {
-      const searchResult = document.getElementById(`searchResult`);
-      console.log(appendedResultCount);
+  async fetchCompanies() {
+    const spinner = document.getElementById(`stockSpinner`);
+    spinner.classList.remove("d-none");
+    listOfCompanies.classList.add("d-none");
+    let userInput = document.getElementById(`userInput`).value;
+    let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
+    let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
+    try {
+      const result = await fetch(url);
+      const companies = await result.json();
 
-      this.results.removeChild(this.results.firstElementChild);
+      await this.getTheProfile(companies);
+    } catch (e) {
+      console.log(`error on fetching data`);
+    } finally {
+      spinner.classList.add("d-none");
+      listOfCompanies.classList.remove("d-none");
     }
-    //   listOfCompanies.classList.add("d-none");
-    //   const spinner = document.getElementById(`stockSpinner`);
-    //   spinner.classList.remove("border");
   }
-}
 
-// const resultsNode = document.getElementById(`results`);
-// const results = new SearchResults(resultsNode);
-
-async function fetchCompanies() {
-  const spinner = document.getElementById(`stockSpinner`);
-  spinner.classList.remove("d-none");
-  listOfCompanies.classList.add("d-none");
-  let userInput = document.getElementById(`userInput`).value;
-  let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
-  let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
-  try {
-    const result = await fetch(url);
-    const companies = await result.json();
-
-    await getTheProfile(companies);
-  } catch (e) {
-    console.log(`error on fetching data`);
-  } finally {
-    spinner.classList.add("d-none");
-    listOfCompanies.classList.remove("d-none");
-  }
-}
-
-async function getTheProfile(companies) {
-  for (let i = 0; i < 10; i++) {
-    let symbol = companies[i].symbol;
-    let COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-    const answer = await fetch(COMPANY_PROFILE);
-    let profileData = await answer.json();
-    let companyData = document.createElement("li");
-    companyData.classList.add("d-flex", "flex-row");
-    //   let companyList = document.getElementById(`resultsOfCompany`);
-    let tagImg = document.createElement("img");
-    tagImg.src = profileData.profile.image;
-    tagImg.onerror = function placeCage() {
-      tagImg.src = "https://www.placecage.com/c/200/200";
-    };
-    tagImg.classList.add("rounded", "mt-2", "mx-2", "pt-1");
-    tagImg.style = "max-height:25px; max-width:25px;";
-    let dailyChange = document.createElement("p");
-    let percentChange = profileData.profile.changesPercentage;
-    percentChange = Number(percentChange).toFixed(2);
-    dailyChange.innerText = `(` + percentChange + `%` + `)`;
-    if (percentChange > 0) dailyChange.classList.add("text-success");
-    if (percentChange < 0) dailyChange.classList.add("text-danger");
-    dailyChange.classList.add("me-1", "mt-2", "ms-3");
-    let tagLink = document.createElement("a");
-    tagLink.href = ``;
-    companyData.classList.add(
-      "border-bottom",
-      "border-grey",
-      "border-0",
-      "px-2",
-      "py-0"
-    );
-    let COMPANY_URL = "/company.html?symbol=" + companies[i].symbol;
-    tagLink.href = COMPANY_URL;
-    let tag = document.createElement(`p`);
-    tag.innerText = companies[i].name + ` ` + " (" + companies[i].symbol + ")";
-    tag.classList.add("mt-2");
-    tagLink.appendChild(tag);
-    companyData.append(tagImg);
-    companyData.append(tagLink);
-    companyData.append(dailyChange);
-    resultsOfCompany.append(companyData);
-    let urlParams = new URLSearchParams(COMPANY_URL);
-    urlParams.get(symbol);
+  async getTheProfile(companies) {
+    for (let i = 0; i < 10; i++) {
+      let symbol = companies[i].symbol;
+      let COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
+      const answer = await fetch(COMPANY_PROFILE);
+      let profileData = await answer.json();
+      let companyData = document.createElement("li");
+      companyData.classList.add("d-flex", "flex-row");
+      let tagImg = document.createElement("img");
+      tagImg.src = profileData.profile.image;
+      tagImg.onerror = () => {
+        tagImg.src = "https://www.placecage.com/c/200/200";
+      };
+      tagImg.classList.add("rounded", "mt-2", "mx-2", "pt-1");
+      tagImg.style = "max-height:25px; max-width:25px;";
+      let dailyChange = document.createElement("p");
+      let percentChange = profileData.profile.changesPercentage;
+      percentChange = Number(percentChange).toFixed(2);
+      dailyChange.innerText = `(` + percentChange + `%` + `)`;
+      if (percentChange > 0) dailyChange.classList.add("text-success");
+      if (percentChange < 0) dailyChange.classList.add("text-danger");
+      dailyChange.classList.add("me-1", "mt-2", "ms-3");
+      let tagLink = document.createElement("a");
+      tagLink.href = ``;
+      companyData.classList.add(
+        "border-bottom",
+        "border-grey",
+        "border-0",
+        "px-2",
+        "py-0"
+      );
+      let COMPANY_URL = "/company.html?symbol=" + companies[i].symbol;
+      tagLink.href = COMPANY_URL;
+      let tag = document.createElement(`p`);
+      tag.innerText =
+        companies[i].name + ` ` + " (" + companies[i].symbol + ")";
+      tag.classList.add("mt-2");
+      tagLink.appendChild(tag);
+      companyData.append(tagImg);
+      companyData.append(tagLink);
+      companyData.append(dailyChange);
+      resultsOfCompany.append(companyData);
+      let urlParams = new URLSearchParams(COMPANY_URL);
+      urlParams.get(symbol);
+    }
   }
 }

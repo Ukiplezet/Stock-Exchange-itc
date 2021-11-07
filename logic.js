@@ -1,7 +1,4 @@
-// const spinner = document.getElementById("stockSpinner");
-let button = document.getElementById(`button`);
-// const header = document.getElementById(`header`);
-// const companiesContent = document.getElementById(`companiesContent`);
+const button = document.getElementById(`button`);
 
 button.addEventListener(`click`, async () => {
   let userInput = document.getElementById("userInput").value;
@@ -9,7 +6,7 @@ button.addEventListener(`click`, async () => {
   init(resultsOfCompany);
   let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
   let result = fetch(url)
-    .then((response) => { 
+    .then((response) => {
       spinner.classList.remove("d-none");
       listOfCompanies.classList.add("d-none");
       return response.json();

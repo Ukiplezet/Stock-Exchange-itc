@@ -26,7 +26,7 @@ grabCompanyProfile(symbol);
 async function grabStockHistory(symbol) {
   const STOCK_HISTORY = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
   try {
-    fetch(STOCK_HISTORY)
+   await fetch(STOCK_HISTORY)
       .then((response) => {
         if (!response.ok) throw new TypeError("Personalized Error");
         return response.json();
@@ -53,14 +53,13 @@ async function grabCompanyProfile(symbol) {
     companyData.classList.add(`d-none`);
     await grabStockHistory(symbol);
     append(data);
-    if (!response.ok) throw new TypeError("Personalized Error");
+    if (!response.ok)
+      throw new TypeError("Error: something went terribly wrong!");
   } catch (e) {
     console.log(e);
   } finally {
-    setTimeout(() => {
-      spinner.classList.add(`d-none`);
-      companyData.classList.remove(`d-none`);
-    }, 1000);
+    spinner.classList.add(`d-none`);
+    companyData.classList.remove(`d-none`);
   }
 }
 

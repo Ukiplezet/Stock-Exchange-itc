@@ -49,5 +49,3 @@ class Marquee {
     }
   }
 }
-// const marqueeNode = document.getElementById(`marquee`);
-// const marquee = new Marquee(marqueeNode);

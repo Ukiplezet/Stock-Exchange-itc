@@ -28,6 +28,3 @@ class SearchForm {
     this.searchForm.appendChild(inputContainer);
   }
 }
-
-// const searchNode = document.getElementById(`searchForm`);
-// const searchForm = new SearchForm(searchNode);
