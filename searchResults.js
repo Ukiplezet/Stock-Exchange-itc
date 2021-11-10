@@ -27,12 +27,12 @@ class SearchResults {
     searchResult.id = `searchRsult`;
     searchResult.classList.add("d-flex", "justify-content-center", "flex-row");
     const companiesContent = document.createElement("div");
-    companiesContent.id = `companiesContent`;
+    companiesContent.id = "companiesContent";
 
     companiesContent.classList.add("d-flex", "rounded");
 
     const listOfCompanies = document.createElement("div");
-    listOfCompanies.id = `listOfCompanies`;
+    listOfCompanies.id = "listOfCompanies";
     listOfCompanies.classList.add(
       "d-flex",
       "flex-row",
@@ -44,7 +44,7 @@ class SearchResults {
       "justify-content-center"
     );
     const resultsOfCompany = document.createElement("ul");
-    resultsOfCompany.id = `resultsOfCompany`;
+    resultsOfCompany.id = "resultsOfCompany";
     resultsOfCompany.classList.add("d-flex", "flex-column", "list-unstyled");
     this.results.appendChild(searchResult);
     searchResult.append(spinner);
@@ -54,19 +54,19 @@ class SearchResults {
     this.fetchCompanies(companies);
   }
   async fetchCompanies() {
-    const spinner = document.getElementById(`stockSpinner`);
+    const spinner = document.getElementById("stockSpinner");
     spinner.classList.remove("d-none");
     listOfCompanies.classList.add("d-none");
-    let userInput = document.getElementById(`userInput`).value;
-    let query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
-    let url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
+    const userInput = document.getElementById(`userInput`).value;
+    const query = `search?query=${userInput}&${LIST_LIMIT}&${EXCHANGE}`;
+    const url = `${SERVER_BASE_URL}${SERVER_API}${query}`;
     try {
       const result = await fetch(url);
       const companies = await result.json();
 
       await this.getTheProfile(companies);
     } catch (e) {
-      console.log(`error on fetching data`);
+      console.log("error on fetching data");
     } finally {
       spinner.classList.add("d-none");
       listOfCompanies.classList.remove("d-none");
@@ -75,27 +75,27 @@ class SearchResults {
 
   async getTheProfile(companies) {
     for (let i = 0; i < 10; i++) {
-      let symbol = companies[i].symbol;
-      let COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
+      const symbol = companies[i].symbol;
+      const COMPANY_PROFILE = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
       const answer = await fetch(COMPANY_PROFILE);
-      let profileData = await answer.json();
-      let companyData = document.createElement("li");
+      const profileData = await answer.json();
+      const companyData = document.createElement("li");
       companyData.classList.add("d-flex", "flex-row");
-      let tagImg = document.createElement("img");
+      const tagImg = document.createElement("img");
       tagImg.src = profileData.profile.image;
       tagImg.onerror = () => {
         tagImg.src = "https://www.placecage.com/c/200/200";
       };
       tagImg.classList.add("rounded", "mt-2", "mx-2", "pt-1");
       tagImg.style = "max-height:25px; max-width:25px;";
-      let dailyChange = document.createElement("p");
+      const dailyChange = document.createElement("p");
       let percentChange = profileData.profile.changesPercentage;
       percentChange = Number(percentChange).toFixed(2);
-      dailyChange.innerText = `(` + percentChange + `%` + `)`;
+      dailyChange.innerText = `( ${percentChange}%)`;
       if (percentChange > 0) dailyChange.classList.add("text-success");
       if (percentChange < 0) dailyChange.classList.add("text-danger");
       dailyChange.classList.add("me-1", "mt-2", "ms-3");
-      let tagLink = document.createElement("a");
+      const tagLink = document.createElement("a");
       tagLink.href = ``;
       companyData.classList.add(
         "border-bottom",
@@ -104,18 +104,16 @@ class SearchResults {
         "px-2",
         "py-0"
       );
-      let COMPANY_URL = "/company.html?symbol=" + companies[i].symbol;
+      const COMPANY_URL = `./company.html?symbol=${symbol}`;
       tagLink.href = COMPANY_URL;
-      let tag = document.createElement(`p`);
-      tag.innerText =
-        companies[i].name + ` ` + " (" + companies[i].symbol + ")";
+      const tag = document.createElement(`p`);
+      tag.innerText = ` ${companies[i].name}( ${symbol})`;
       tag.classList.add("mt-2");
       tagLink.appendChild(tag);
-      companyData.append(tagImg);
-      companyData.append(tagLink);
-      companyData.append(dailyChange);
+      companyData.append(tagImg, tagLink, dailyChange);
+
       resultsOfCompany.append(companyData);
-      let urlParams = new URLSearchParams(COMPANY_URL);
+      const urlParams = new URLSearchParams(COMPANY_URL);
       urlParams.get(symbol);
     }
   }

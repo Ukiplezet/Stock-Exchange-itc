@@ -12,7 +12,6 @@ class SearchForm {
     inputGroup.classList.add("d-flex", "mb-3");
     const userInput = document.createElement("input");
     userInput.id = `userInput`;
-
     userInput.classList.add("form-control", "w-25", "d-flex");
     userInput.setAttribute("type", "search");
     userInput.placeholder = "Search Stock...";
@@ -20,11 +19,8 @@ class SearchForm {
     const button = document.createElement("span");
     button.classList.add("btn");
     button.innerText = `Search`;
-    button.id = `button`;
-
-    inputContainer.append(inputGroup);
-    inputContainer.append(userInput);
-    inputContainer.append(button);
+    button.id = "button";
+    inputContainer.append(inputGroup, userInput, button);
     this.searchForm.appendChild(inputContainer);
   }
 }

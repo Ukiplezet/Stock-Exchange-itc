@@ -10,24 +10,24 @@ class Marquee {
   }
 
   getAllConsts() {
-    this.marquee = document.getElementById(`marquee`);
+    this.marquee = document.getElementById("marquee");
     this.marquee_url = `${SERVER_BASE_URL}${SERVER_API}${DATA_REAL_TIME}`;
   }
   async CurrentStockMarquee() {
     const response = await fetch(this.marquee_url);
-    let banner = await response.json();
-    let marqueeWrap = document.createElement("div");
-    let marqueeBanner = document.createElement("span");
+    const banner = await response.json();
+    const marqueeWrap = document.createElement("div");
+    const marqueeBanner = document.createElement("span");
     marqueeWrap.classList.add("marqueeWrap");
     marqueeWrap.appendChild(marqueeBanner);
     this.marquee.append(marqueeWrap);
 
     for (let i = 0; i < banner.length; i++) {
-      let companyTicker = document.createElement("p");
+      const companyTicker = document.createElement("p");
       companyTicker.innerHTML = banner[i].ticker;
-      let currentChange = document.createElement("p");
-      let currentPrice = document.createElement("p");
-      currentPrice.innerHTML = banner[i].price + `$`;
+      const currentChange = document.createElement("p");
+      const currentPrice = document.createElement("p");
+      currentPrice.innerHTML = `${banner[i].price}$`;
       currentChange.innerHTML = Number(banner[i].changesPercentage).toFixed(2);
       if (currentChange.innerText > 0) {
         currentChange.innerHTML =
@@ -43,9 +43,7 @@ class Marquee {
       currentChange.classList.add("mx-1", "flex-row-nowrap");
       currentPrice.classList.add("ms-1", "me-1", "flex-row-nowrap");
       marqueeBanner.classList.add("d-flex", "flex-row-nowrap");
-      marqueeBanner.append(companyTicker);
-      marqueeBanner.append(currentChange);
-      marqueeBanner.append(currentPrice);
+      marqueeBanner.append(companyTicker, currentChange, currentPrice);
     }
   }
 }
