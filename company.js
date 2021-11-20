@@ -18,7 +18,7 @@ const priceAndChangeAndLink = document.getElementById("priceAndChangeAndLink");
 const urlParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlParams.entries());
 const symbol = params.symbol;
-const xlabels = [];
+const dateAxis = [];
 const closingPrice = [];
 
 grabCompanyProfile(symbol);
@@ -33,7 +33,7 @@ async function grabStockHistory(symbol) {
       })
       .then((graph) => {
         for (let i in graph.historical) {
-          xlabels.push(graph.historical[i].date);
+          dateAxis.push(graph.historical[i].date);
           closingPrice.push(graph.historical[i].close);
         }
         getChart(graph);
@@ -55,8 +55,8 @@ async function grabCompanyProfile(symbol) {
     append(data);
     if (!response.ok)
       throw new TypeError("Error: something went terribly wrong!");
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   } finally {
     spinner.classList.add("d-none");
     companyData.classList.remove("d-none");
@@ -79,8 +79,7 @@ function append(data) {
   companyLink.innerText = `Website:${data.profile.companyName}`;
   companyLink.href = data.profile.website;
   stockPrice.innerText = `Stock price: $${data.profile.price}`;
-  let percentOfChange = data.profile.changesPercentage;
-  percentOfChange = Number(percentOfChange).toFixed(2);
+  let percentOfChange = Number(data.profile.changesPercentage).toFixed(2);
   goodOrBad(percentOfChange);
   companyData.classList.add("border", "border-1", "shadow", "pb-2");
 }
@@ -95,19 +94,13 @@ function goodOrBad(percentOfChange) {
     changePercent.innerText = `(${percentOfChange}%)`;
   }
 }
-const chartStyle = [
-  (Chart.defaults.elements.line.borderWidth = 0),
-  (Chart.defaults.elements.point.radius = 2),
-  (Chart.defaults.elements.pointStyle = `line`),
-  (Chart.defaults.elements.line.stepped = true),
-  (Chart.defaults.elements.line.tension = 0),
-];
+
 function getChart(graph) {
   const ctx = document.getElementById(`chart`).getContext("2d");
   const myChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: xlabels.reverse(),
+      labels: dateAxis.reverse(),
       datasets: [
         {
           label: graph.symbol,
